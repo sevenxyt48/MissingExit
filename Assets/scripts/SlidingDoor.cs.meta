@@ -3,7 +3,17 @@ guid: 494b86067542cbe4eb81613fbd938249
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - doorPanel: {instanceID: 0}
+  - roomController: {instanceID: 0}
+  - hintText: {instanceID: 0}
+  - sfx: {instanceID: 0}
+  - loopSource: {instanceID: 0}
+  - openStartClip: {fileID: 8300000, guid: 5c09f99d2a8d47b469ef151c99c337cf, type: 3}
+  - closeStartClip: {fileID: 8300000, guid: 5c09f99d2a8d47b469ef151c99c337cf, type: 3}
+  - slidingLoopClip: {instanceID: 0}
+  - stopClip: {instanceID: 0}
+  - toggleClip: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

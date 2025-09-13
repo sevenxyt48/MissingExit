@@ -1,94 +1,139 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class ClueUIManager : MonoBehaviour
 {
     public static ClueUIManager Instance;
 
+    [Header("UI 참조")]
     public GameObject cluePanel;
     public TMP_Text titleText;
     public TMP_Text contentText;
     public Image clueImage;
     public AudioSource audioSource;
 
-    private void Awake()
+    [Header("효과")]
+    public bool useTypewriter = true;
+    [Tooltip("초당 글자 수")]
+    public float typewriterSpeed = 16f;
+
+    private Coroutine typingCoroutine;
+    private bool isTyping = false;
+    private bool isShowing = false;
+    private string currentFullContent = "";
+
+    void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        if (Instance == null) { Instance = this; InitializeUI(); }
+        else { Destroy(gameObject); return; }
 
-        Instance = this;
-
-        // 确保开始时面板隐藏
-        if (cluePanel != null)
-        {
-            cluePanel.SetActive(false);
-            Debug.Log("初始化时隐藏线索面板");
-        }
+        // 항상 맨 위에 뜨게(정렬 보정)
+        var canvas = cluePanel ? cluePanel.GetComponentInParent<Canvas>() : GetComponentInChildren<Canvas>(true);
+        if (canvas) { canvas.overrideSorting = true; canvas.sortingOrder = 200; }
     }
 
-    private void Update()
+    void InitializeUI()
     {
-        // 按F或ESC关闭线索面板
-        if (cluePanel.activeSelf && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.F)))
-        {
-            HideClue();
-        }
+        if (cluePanel) cluePanel.SetActive(false);
+        if (titleText) titleText.text = "";
+        if (contentText) contentText.text = "";
+        if (clueImage) clueImage.gameObject.SetActive(false);
     }
 
-    public void ShowClue(string clueID)
+    public void ShowClue(string title, string content, Sprite image = null, AudioClip sound = null)
     {
-        Debug.Log($"显示线索: {clueID}");
+        if (cluePanel) cluePanel.SetActive(true);
+        isShowing = true;
 
-        ClueData data = ClueDatabase.Instance.GetClueByID(clueID);
-        if (data == null)
+        if (titleText) titleText.text = title ?? "";
+        currentFullContent = content ?? "";
+
+        // 타자기
+        if (useTypewriter && contentText)
         {
-            Debug.LogError($"未找到线索数据: {clueID}");
-            return;
-        }
-
-        titleText.text = data.title;
-        contentText.text = data.content;
-
-        if (data.clueImage != null)
-        {
-            clueImage.sprite = data.clueImage;
-            clueImage.gameObject.SetActive(true);
+            if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+            typingCoroutine = StartCoroutine(TypeWriter(currentFullContent));
         }
         else
         {
-            clueImage.gameObject.SetActive(false);
+            if (contentText) contentText.text = currentFullContent;
+            isTyping = false;
         }
 
-        // 播放音效
-        if (data.clueSound != null && audioSource != null)
+        // 이미지
+        if (clueImage)
         {
-            audioSource.clip = data.clueSound;
-            audioSource.Play();
+            if (image != null) { clueImage.sprite = image; clueImage.gameObject.SetActive(true); }
+            else { clueImage.gameObject.SetActive(false); }
         }
 
-        if (cluePanel != null)
+        // 사운드
+        if (audioSource)
         {
-            cluePanel.SetActive(true);
-            Debug.Log("线索面板已激活");
+            if (sound != null) { audioSource.clip = sound; audioSource.Play(); }
+            else { audioSource.Stop(); }
         }
+
+        // 🔴 열람 시작 통지
+        GameManager.Instance?.NotifyClueOpened();
+    }
+
+    IEnumerator TypeWriter(string fullText)
+    {
+        isTyping = true;
+        if (contentText) contentText.text = "";
+
+        float tPerChar = 1f / Mathf.Max(0.001f, typewriterSpeed);
+        foreach (char c in fullText)
+        {
+            if (contentText) contentText.text += c;
+            yield return new WaitForSeconds(tPerChar);
+        }
+
+        isTyping = false;
+        typingCoroutine = null;
+    }
+
+    void SkipTyping()
+    {
+        if (!isTyping) return;
+        if (typingCoroutine != null) { StopCoroutine(typingCoroutine); typingCoroutine = null; }
+        isTyping = false;
+        if (contentText) contentText.text = currentFullContent;
+    }
+
+    void Update()
+    {
+        if (!isShowing) return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (isTyping) { SkipTyping(); return; }
+            HideClue(); return;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape)) { HideClue(); return; }
     }
 
     public void HideClue()
     {
-        if (cluePanel != null)
-        {
-            cluePanel.SetActive(false);
-            Debug.Log("隐藏线索面板");
-        }
+        if (!isShowing) return;
 
-        // 停止音效
-        if (audioSource != null && audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
+        if (typingCoroutine != null) { StopCoroutine(typingCoroutine); typingCoroutine = null; }
+        isTyping = false;
+
+        if (audioSource && audioSource.isPlaying) audioSource.Stop();
+        if (clueImage) clueImage.gameObject.SetActive(false);
+        if (titleText) titleText.text = "";
+        if (contentText) contentText.text = "";
+        if (cluePanel) cluePanel.SetActive(false);
+        isShowing = false;
+
+        // 🔴 열람 종료 통지(닫은 뒤 유예가 적용됨)
+        GameManager.Instance?.NotifyClueClosed();
     }
+
+    // 외부에서 상태 읽기 원할 때
+    public bool IsOpen => isShowing;
 }
