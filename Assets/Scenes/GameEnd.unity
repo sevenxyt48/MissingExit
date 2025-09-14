@@ -865,11 +865,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Credit\n202213522 \uC18C\uC77C\uC804\n202013833 \uB09C\uB529\uCE58\uBA55\n202013834
-    \uB0C9\uAE30\uCD1D\n\n\uC9C0\uB3C4 \uAD50\uC218 \uAE40\uD615\uC11D\n\n\n\r\n[LEGAL]\r\n\xA9
-    2025 <\uC878\uC5C5\uD504\uB85C\uC81D\uD2B8 4\uD300>. All rights reserved.\r\n\u201CUnity\u201D
-    is a trademark of Unity Technologies.\r\nThis is a work of fiction. Any resemblance
-    is coincidental.\r\nNo personal data is collected."
+  m_text: "[TEAM]\r\nProject Lead / Producer : \uC18C\uC77C\uC804 / \uB09C\uB529\uCE58\uBA55
+    / \uB0C9\uAE30\uCD1D\r\nProgramming             : \uC18C\uC77C\uC804\r\nArt                    
+    : \uB0C9\uAE30\uCD1D / \uC18C\uC77C\uC804\r\nSound                   : \uB0C9\uAE30\uCD1D
+    / \uC18C\uC77C\uC804\r\nWriting / Narrative     : \uB09C\uB529\uCE58\uBA55\r\nDocumentation          
+    : \uB09C\uB529\uCE58\uBA55 / \uC18C\uC77C\uC804\r\n\r\n[SPECIAL THANKS]\r\n\uC9C0\uB3C4\uAD50\uC218:
+    \uAE40\uD615\uC11D \uAD50\uC218 (\uAC74\uAD6D\uB300\uD559\uAD50 \uCEF4\uD4E8\uD130\uD559\uBD80)\r\n\r\n[ASSETS
+    & LICENSES]\r\nFonts: Noto Sans KR \xA9 Google & Adobe \u2014 SIL Open Font License
+    1.1\r\n(\uAE30\uD0C0 \uC0AC\uC6A9 \uC5D0\uC14B/\uC74C\uC6D0/\uD3F0\uD2B8\uB3C4
+    \uB3D9\uC77C \uD615\uC2DD\uC73C\uB85C)\r\n\r\n[LEGAL]\r\n\xA9 2025 <\uD300/\uC774\uB984>.
+    All rights reserved.\r\n\u201CUnity\u201D is a trademark of Unity Technologies.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1d7b8890968e94b4da87fc7d17da8b6a, type: 2}
   m_sharedMaterial: {fileID: -1183830716614998879, guid: 1d7b8890968e94b4da87fc7d17da8b6a, type: 2}
