@@ -72,6 +72,41 @@ public class PenaltyManager : MonoBehaviour
 
     float Now => useUnscaledTime ? Time.unscaledTime : Time.time;
 
+    public AudioSource sustainSource;           // Loop 전용(PlayOnAwake off, Loop off)
+    string sustainingReason;
+
+    // 시작/종료 메서드
+    public void StartSustain(string reason, AudioClip clip, float vol = 0.8f)
+    {
+        if (!sustainSource || !clip) return;
+        sustainingReason = reason;
+        sustainSource.Stop();
+        sustainSource.clip = clip;
+        sustainSource.volume = vol;
+        sustainSource.loop = true;
+        sustainSource.Play();
+    }
+
+    public void StopSustain(string reason)
+    {
+        if (!sustainSource) return;
+        if (sustainingReason == reason) { sustainSource.Stop(); sustainSource.clip = null; sustainingReason = null; }
+    }
+
+    // 지속 루프 시작(앵커 위치로 재생)
+    public void StartSustain(string reason, AudioClip clip, float vol, Transform anchor)
+    {
+        if (!sustainSource || !clip) return;
+        sustainingReason = reason;
+        sustainSource.Stop();
+        sustainSource.clip = clip;
+        sustainSource.volume = vol;
+        sustainSource.loop = true;
+        if (anchor) sustainSource.transform.position = anchor.position; // 3D 위치 고정
+        sustainSource.Play();
+    }
+
+
     void Awake()
     {
         if (Instance == null) { Instance = this; DontDestroyOnLoad(gameObject); }

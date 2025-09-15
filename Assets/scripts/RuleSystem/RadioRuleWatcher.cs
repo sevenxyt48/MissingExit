@@ -1,4 +1,3 @@
-// RadioRuleWatcher.cs (교체)
 using UnityEngine;
 
 public class RadioRuleWatcher : MonoBehaviour
@@ -8,8 +7,14 @@ public class RadioRuleWatcher : MonoBehaviour
     public float startupGrace = 0f;
 
     [Header("라디오")]
-    public SimpleRadio radio;          // ← 강타입
-    public float graceSeconds = 6f;    // 켜진 채 N초 유지 시 위반
+    public SimpleRadio radio;              // 강타입 참조
+    [Tooltip("라디오가 켜진 채 이 시간(초) 유지되면 위반")]
+    public float graceSeconds = 6f;
+
+    [Header("지속 사운드(선택)")]
+    public bool startSustainOnViolation = true;
+    public AudioClip sustainLoopClip;      // 위반 후 계속 들릴 루프
+    [Range(0f, 1f)] public float sustainVolume = 0.8f;
 
     [Header("Penalty")]
     public string violationReason = "라디오 규칙 위반";
@@ -19,9 +24,17 @@ public class RadioRuleWatcher : MonoBehaviour
     bool prevOn;
     float onStart;
     bool violatedThisOn;
+    bool sustaining;
 
-    void OnValidate() { if (!radio) radio = GetComponentInChildren<SimpleRadio>(true); }
-    void Awake() { enableAt = Time.time; }
+    void OnValidate()
+    {
+        if (!radio) radio = GetComponentInChildren<SimpleRadio>(true);
+    }
+
+    void Awake()
+    {
+        enableAt = Time.time;
+    }
 
     bool Active()
     {
@@ -33,10 +46,20 @@ public class RadioRuleWatcher : MonoBehaviour
 
     void Update()
     {
-        if (!radio || !Active()) return;
+        if (!radio || !Active())
+        {
+            // 방을 벗어나면 안전하게 지속음을 끈다
+            if (sustaining) { PenaltyManager.Instance?.StopSustain(violationReason); sustaining = false; }
+            return;
+        }
 
         bool on = radio.IsOn;
-        if (on && !prevOn) { onStart = Time.time; violatedThisOn = false; }
+
+        if (on && !prevOn)
+        {
+            onStart = Time.time;
+            violatedThisOn = false;
+        }
 
         if (on)
         {
@@ -44,10 +67,27 @@ public class RadioRuleWatcher : MonoBehaviour
             {
                 PenaltyManager.Instance?.ApplyPenalty(violationReason, penaltyText);
                 violatedThisOn = true;
+
+                if (startSustainOnViolation && sustainLoopClip)
+                {
+                    PenaltyManager.Instance?.StartSustain(violationReason, sustainLoopClip, sustainVolume);
+                    sustaining = true;
+                }
             }
         }
-        else { onStart = 0f; violatedThisOn = false; }
+        else
+        {
+            // 라디오가 꺼지면 지속음을 정지(이중보호: SimpleRadio에서도 정지 호출함)
+            if (sustaining) { PenaltyManager.Instance?.StopSustain(violationReason); sustaining = false; }
+            onStart = 0f;
+            violatedThisOn = false;
+        }
 
         prevOn = on;
+    }
+
+    void OnDisable()
+    {
+        if (sustaining) { PenaltyManager.Instance?.StopSustain(violationReason); sustaining = false; }
     }
 }
