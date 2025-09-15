@@ -83,3 +83,13 @@ crashlytics-build.properties
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db.meta
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
+
+# 忽略我自定义的构建产物目录
+/Scene/
+
+# （可选，更细化）
+/Scene/*_Data/
+/Scene/*.exe
+/Scene/*.x86_64
+/Scene/*.app
+/Scene/*.apk
