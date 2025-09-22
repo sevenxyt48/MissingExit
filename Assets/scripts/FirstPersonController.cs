@@ -28,8 +28,8 @@ public class FirstPersonController : MonoBehaviour
 
     [Header("Start Seated")]
     public bool startSeated = true;            // 시작 시 앉아있음
-    public bool allowManualStandUp = true;     // F 키로 일어날 수 있음
-    public KeyCode standUpKey = KeyCode.F;
+    public bool allowManualStandUp = true;     // Q 키로 일어날 수 있음
+    public KeyCode standUpKey = KeyCode.Q;     // ★ Q로 변경
 
     [Header("Head Bob")]
     public bool enableHeadBob = true;
@@ -55,6 +55,9 @@ public class FirstPersonController : MonoBehaviour
     bool _canMove;
     bool _isCrouching;
 
+    // 노트 중 수동 일어서기 금지 토글
+    bool _manualStandUpEnabled = true;
+
     void Awake()
     {
         _cc = GetComponent<CharacterController>();
@@ -68,7 +71,7 @@ public class FirstPersonController : MonoBehaviour
         _cc.center = new Vector3(0, _cc.height / 2f, 0);
         _targetHeight = _cc.height;
 
-        _canMove = !startSeated; // 앉아서 시작 시 이동 불가
+        _canMove = !startSeated; // 앉아서 시작 시 이동/시야 불가
 
         if (cameraRoot == null)
             Debug.LogError("[FPC] cameraRoot 할당 필요");
@@ -84,9 +87,8 @@ public class FirstPersonController : MonoBehaviour
         HeadBobUpdate();
         FootstepUpdate();
 
-
-        // 수동 StandUp
-        if (startSeated && allowManualStandUp && !_canMove && Input.GetKeyDown(standUpKey))
+        // 수동 StandUp: 노트 중에는 비활성화
+        if (startSeated && allowManualStandUp && _manualStandUpEnabled && !_canMove && Input.GetKeyDown(standUpKey))
         {
             StandUp();
         }
@@ -95,6 +97,8 @@ public class FirstPersonController : MonoBehaviour
     // ==== 마우스 시야 ====
     void LookUpdate()
     {
+        if (!_canMove) return; // 조작 잠금 시 시야 회전 차단
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
@@ -111,7 +115,7 @@ public class FirstPersonController : MonoBehaviour
     {
         if (!_canMove)
         {
-            // 앉은 시작 상태 → 중력만 적용
+            // 잠금 중엔 중력만 최소 적용
             if (_cc.isGrounded && _moveVelocity.y < 0) _moveVelocity.y = -0.1f;
             _moveVelocity.y += gravity * Time.deltaTime * 0.1f;
             _cc.Move(new Vector3(0, _moveVelocity.y, 0) * Time.deltaTime);
@@ -162,6 +166,14 @@ public class FirstPersonController : MonoBehaviour
     void HeadBobUpdate()
     {
         if (!enableHeadBob || cameraTransform == null || !_cc.isGrounded) return;
+        if (!_canMove)
+        {
+            // 잠금 시엔 정위치로 복귀
+            Vector3 local = cameraTransform.localPosition;
+            local.y = Mathf.Lerp(local.y, 0f, Time.deltaTime * 6f);
+            cameraTransform.localPosition = local;
+            return;
+        }
 
         Vector3 horizontalVel = _cc.velocity; horizontalVel.y = 0;
         float speed = horizontalVel.magnitude;
@@ -187,22 +199,11 @@ public class FirstPersonController : MonoBehaviour
     // ==== 발자국 소리 ====
     void FootstepUpdate()
     {
-        //if (!_cc.isGrounded) return;
-        if (!_cc.isGrounded)
-        {
-            Debug.Log("플레이어가 땅에 닿아있지 않음");
-            return;
-        }
+        if (!_cc.isGrounded) return;
+        if (!_canMove) return;
 
-        Vector3 vel = _cc.velocity;
-        vel.y = 0;
+        Vector3 vel = _cc.velocity; vel.y = 0;
         float speed = vel.magnitude;
-
-        // Debug 查看速度
-        //Debug.Log("Player speed: " + speed);
-
-        // 取消原来的 0.2 阈值，慢走也能触发脚步
-        // if (speed < 0.2f) { _stepCycle = 0f; return; }
 
         bool running = speed > (runSpeed * 0.5f);
         float interval = running ? stepIntervalRun : stepIntervalWalk;
@@ -215,26 +216,14 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-
     void PlayFootstep(bool running)
     {
-        if (footstepClips == null || footstepClips.Length == 0)
-        {
-            Debug.LogWarning("발자국 소리 클립이 없습니다!");
-            return;
-        }
-
-        //Debug.Log("발자국 소리 재생 시도");
-
-        //if (footstepClips == null || footstepClips.Length == 0) return;
-        //if (_audio.isPlaying) return;
+        if (footstepClips == null || footstepClips.Length == 0) return;
 
         var clip = footstepClips[Random.Range(0, footstepClips.Length)];
         _audio.volume = running ? stepVolumeRun : stepVolumeWalk;
         _audio.pitch = Random.Range(0.95f, 1.05f);
         _audio.PlayOneShot(clip);
-        //Debug.Log("Playing footstep: " + clip.name + " volume: " + _audio.volume);
-
     }
 
     // ==== 수동 StandUp 호출 ====
@@ -261,23 +250,23 @@ public class FirstPersonController : MonoBehaviour
     public void SetControlEnabled(bool enabled)
     {
         _canMove = enabled;
-        if (!enabled) _moveVelocity = Vector3.zero;
-    }
-
-    void TestCollisionCheck()
-    {
-        Collider[] hits = Physics.OverlapCapsule(
-            transform.position + _cc.center + Vector3.up * (_cc.height / 2f - _cc.radius),
-            transform.position + _cc.center - Vector3.up * (_cc.height / 2f - _cc.radius),
-            _cc.radius
-        );
-
-        foreach (var hit in hits)
+        if (!enabled)
         {
-            if (hit.gameObject != gameObject)
+            _moveVelocity = Vector3.zero;
+            if (cameraTransform != null)
             {
-                Debug.Log("[FPC 충돌 감지] " + hit.gameObject.name + " 와(과) 충돌 중");
+                var lp = cameraTransform.localPosition;
+                lp.y = Mathf.Lerp(lp.y, 0f, Time.deltaTime * 8f);
+                cameraTransform.localPosition = lp;
             }
         }
+    }
+
+    public bool IsControlEnabled => _canMove;
+
+    // ==== 수동 일어서기 허용/차단 ====
+    public void SetManualStandUpEnabled(bool enabled)
+    {
+        _manualStandUpEnabled = enabled;
     }
 }

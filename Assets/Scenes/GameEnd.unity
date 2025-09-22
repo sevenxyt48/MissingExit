@@ -403,7 +403,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 250, y: 50}
+  m_SizeDelta: {x: 250, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &787149270
 GameObject:
@@ -489,9 +489,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 803017471}
-  - component: {fileID: 803017474}
-  - component: {fileID: 803017473}
-  - component: {fileID: 803017472}
   m_Layer: 5
   m_Name: CreditsRoot
   m_TagString: Untagged
@@ -516,72 +513,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.5, y: 0}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1500, y: 2500}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &803017472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803017470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &803017473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803017470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!223 &803017474
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803017470}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1 &1348148666
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,7 +777,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 50}
+  m_SizeDelta: {x: 1500, y: 2000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1867483316
 MonoBehaviour:
@@ -871,10 +805,15 @@ MonoBehaviour:
     / \uC18C\uC77C\uC804\r\nWriting / Narrative     : \uB09C\uB529\uCE58\uBA55\r\nDocumentation          
     : \uB09C\uB529\uCE58\uBA55 / \uC18C\uC77C\uC804\r\n\r\n[SPECIAL THANKS]\r\n\uC9C0\uB3C4\uAD50\uC218:
     \uAE40\uD615\uC11D \uAD50\uC218 (\uAC74\uAD6D\uB300\uD559\uAD50 \uCEF4\uD4E8\uD130\uD559\uBD80)\r\n\r\n[ASSETS
-    & LICENSES]\r\nFonts: Noto Sans KR \xA9 Google & Adobe \u2014 SIL Open Font License
-    1.1\r\n(\uAE30\uD0C0 \uC0AC\uC6A9 \uC5D0\uC14B/\uC74C\uC6D0/\uD3F0\uD2B8\uB3C4
-    \uB3D9\uC77C \uD615\uC2DD\uC73C\uB85C)\r\n\r\n[LEGAL]\r\n\xA9 2025 <\uD300/\uC774\uB984>.
-    All rights reserved.\r\n\u201CUnity\u201D is a trademark of Unity Technologies.\r"
+    & LICENSES]\r\nFONTS\nNoto Sans KR \xA9 Google & Adobe \u2014 SIL Open Font License
+    1.1\r\nCreepster \xA9 Font Diner, Inc. \u2014 SIL Open Font License 1.1\n\rSOUND
+    EFFECTS\r\n\"window_opening.wav\" by sjturia \u2014 [Freesound.org](http://freesound.org/)
+    \u2014 CC BY 3.0 (edited)\r\n\"light on\u2013pull string click.wav\" \u2014 gloriaeffect
+    \u2014 Freesound \u2014 CC0 1.0\r\n\"Camera beeps & noises.mp3\" \u2014 Caitlin_100
+    \u2014 Freesound \u2014 CC0 1.0\r\n\u201CHorror_piano\u201D\_by Taira Komori
+    \u2014 (c)Taira Komori  \u2014 [Pixabay.com](http://pixabay.com/) \u2014 CC0
+    1.0\n\n[LEGAL]\r\n\xA9 2025 <\uC878\uC5C5\uD504\uB85C\uC81D\uD2B8 4\uD300>. All
+    rights reserved.\r\n\u201CUnity\u201D is a trademark of Unity Technologies.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1d7b8890968e94b4da87fc7d17da8b6a, type: 2}
   m_sharedMaterial: {fileID: -1183830716614998879, guid: 1d7b8890968e94b4da87fc7d17da8b6a, type: 2}
@@ -989,7 +928,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: "\uC5D4\uB529"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1d7b8890968e94b4da87fc7d17da8b6a, type: 2}
   m_sharedMaterial: {fileID: -1183830716614998879, guid: 1d7b8890968e94b4da87fc7d17da8b6a, type: 2}
@@ -1016,8 +955,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1083,7 +1022,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 50}
+  m_SizeDelta: {x: 1000, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2140672216
 GameObject:
@@ -1130,7 +1069,7 @@ MonoBehaviour:
   fadeOutEndingText: 1
   fadeOutDelay: 0.6
   fadeOutDuration: 1.2
-  creditsStartY: -600
+  creditsStartY: -1100
   creditsEndY: 900
   creditsSpeed: 60
   creditsDelayAfterText: 0.8
@@ -1171,10 +1110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

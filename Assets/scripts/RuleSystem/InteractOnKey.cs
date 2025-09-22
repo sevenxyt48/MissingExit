@@ -9,8 +9,8 @@ public class InteractOnKey : MonoBehaviour
 {
     public string playerTag = "Player";
     public float interactionDistance = 2f;
-    public KeyCode key = KeyCode.E;
-    public GameObject hint;          // E 키 프롬프트
+    public KeyCode key = KeyCode.F;
+    public GameObject hint;          // F 키 프롬프트
     public UnityEvent onInteract;
 
     Transform player;
