@@ -64,6 +64,16 @@ public class RoomZone : MonoBehaviour
             StopCoroutine(commitCo);
             commitCo = null;
         }
+
+        // ✅ 이 RoomZone에서 나갔고, 현재 방이 이 방이라면 → 복도(무규칙) 상태로 전환
+        var gm = GameManager.Instance;
+        if (gm != null && gm.CurrentRoomId == roomId)
+        {
+            gm.SetCurrentRoom(string.Empty);   // 빈 문자열 = 복도 / 규칙 없음
+#if UNITY_EDITOR
+            Debug.Log($"[RoomZone:{roomId}] 플레이어가 교실을 떠남 → CurrentRoomId 비움(from{roomId})");
+#endif
+        }
     }
 
     IEnumerator CommitAfterStay(Collider playerCol)
@@ -88,6 +98,8 @@ public class RoomZone : MonoBehaviour
     void CommitEnter()
     {
         GameManager.Instance?.SetCurrentRoom(roomId);
+        // ★ 방 입장 시 해당 방 BGM으로 교차 페이드
+        BgmManager.Instance?.PlayForRoom(roomId);
         if (controller) controller.OnPlayerEntered();
     }
 }

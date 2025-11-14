@@ -8,13 +8,12 @@ public class EndingScreen : MonoBehaviour
 {
     [Header("UI")]
     public TMP_Text endingText;
-    public Button restartButton;          // 있어도 되고, 없어도 됩니다
-    public RectTransform creditsRoot;     // Good 전용(선택)
-    public Image blackBG;                 // 선택
+    public Button restartButton;          // Bad 엔딩에서만 쓸 수 있음 (선택)
+    public Image blackBG;                 // 화면 덮는 어두운 배경 (선택)
 
     [Header("타자기")]
     public bool useTypewriter = true;
-    public float cps = 9f;
+    public float cps = 9f;                // characters per second
     public float jitter = 0.02f;
     public float commaPause = 0.15f;
     public float sentencePause = 0.35f;
@@ -25,17 +24,13 @@ public class EndingScreen : MonoBehaviour
     public float fadeOutDelay = 0.6f;
     public float fadeOutDuration = 1.2f;
 
-    [Header("크레딧 (Good)")]
-    [Tooltip("크레딧 시작 Y(화면 중심 기준). 요청대로 -600으로 시작")]
-    public float creditsStartY = -600f;
-    public float creditsEndY = 900f;
-    public float creditsSpeed = 60f;
-    public float creditsDelayAfterText = 0.8f;
-
     [Header("씬 전환")]
-    public string startSceneName = "StartScene";      // Good 엔딩 후 이동
-    public float loadDelayAfterCredits = 0.5f;
-    public string restartTargetSceneName = "StartScene"; // 🔴 Bad 엔딩: 화면 클릭 시 이동
+    [Tooltip("엔딩 후 돌아갈 스타트(타이틀) 씬 이름")]
+    public string startSceneName = "StartScene";
+    [Tooltip("good 엔딩일 때 자동으로 스타트씬 가기 전 기다리는 시간 (초)")]
+    public float autoReturnDelayAfterGood = 1.0f;
+    [Tooltip("bad 엔딩: 플레이어가 클릭했을 때 이동할 씬 이름 (기본 스타트씬과 같게 써도 됨)")]
+    public string restartTargetSceneName = "StartScene";
 
     [Header("폴백(예비)")]
     [TextArea]
@@ -53,31 +48,24 @@ public class EndingScreen : MonoBehaviour
 
     void Awake()
     {
+        // 재시작 버튼은 Bad 전용으로만 쓸 거라서 초기엔 숨겨둠
         if (restartButton)
         {
             restartButton.gameObject.SetActive(false);
             restartButton.onClick.RemoveAllListeners();
             restartButton.onClick.AddListener(LoadStartScene);
         }
-        if (creditsRoot) creditsRoot.gameObject.SetActive(false);
     }
 
     void Start()
     {
+        // 배경 보이게
         if (blackBG) blackBG.enabled = true;
+
+        // 텍스트 초기화
         if (endingText) endingText.text = "";
 
-        // ✅ 크레딧 앵커/피벗을 중앙으로 고정하고, 시작 Y = -600으로 세팅
-        if (creditsRoot)
-        {
-            ForceCreditsToCenterAnchors();
-            creditsRoot.gameObject.SetActive(false);
-            var pos = creditsRoot.anchoredPosition;
-            pos.y = creditsStartY;              // ← 화면 중심 기준 -600에서 시작
-            creditsRoot.anchoredPosition = pos;
-        }
-
-        // GameManager → Resources.FindObjectsOfTypeAll → PlayerPrefs 순서로 판단
+        // GameManager에서 엔딩 타입/문구 가져오기
         var gm = GameManager.Instance;
         if (gm == null)
         {
@@ -99,34 +87,43 @@ public class EndingScreen : MonoBehaviour
             Debug.Log($"[EndingScreen] Source=PlayerPrefs, LastEnding={persisted}, UseBad={isBad}");
         }
 
+        // 전체 연출 실행
         StartCoroutine(RunSequence());
     }
 
     void Update()
     {
+        // 나쁜 엔딩(bad) 모드일 때:
+        // 텍스트 출력 및 페이드가 다 끝나고 readyToExit = true 된 이후에
+        // 아무 키나 마우스 클릭하면 바로 타이틀로 이동
         if (!isBad || !readyToExit || loading) return;
 
-        // 화면 아무 곳이나 클릭(또는 아무 키) → 즉시 StartScene으로
         if (Input.GetMouseButtonDown(0) || Input.anyKeyDown || TouchBegan())
         {
             LoadStartScene();
         }
     }
 
-    bool TouchBegan() => (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began);
+    bool TouchBegan()
+    {
+        return (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began);
+    }
 
     IEnumerator RunSequence()
     {
-        // 1) 텍스트 출력
+        // 1) 엔딩 텍스트를 타자기 효과로 출력
         yield return StartCoroutine(Typewriter(fullText));
 
-        // 2) 페이드아웃(옵션)
+        // 2) 텍스트 페이드아웃 (옵션)
         if (fadeOutEndingText)
             yield return StartCoroutine(FadeOutText(endingText, fadeOutDelay, fadeOutDuration));
 
+        // 3) 분기
         if (isBad)
         {
-            // 이제부터 클릭하면 바로 이동 가능
+            // Bad 엔딩:
+            // - 바로 씬 전환하지 않고
+            // - 플레이어 입력을 기다린다.
             readyToExit = true;
 
             if (restartButton && !restartButton.gameObject.activeSelf)
@@ -134,20 +131,13 @@ public class EndingScreen : MonoBehaviour
         }
         else
         {
-            // Good: 크레딧 → 다음 씬
-            if (creditsDelayAfterText > 0f)
-                yield return new WaitForSecondsRealtime(creditsDelayAfterText);
-
-            if (creditsRoot)
-            {
-                creditsRoot.gameObject.SetActive(true);
-                yield return StartCoroutine(ScrollCredits());
-            }
-
+            // Good 엔딩:
+            // - 크레딧 없이 자동으로 스타트씬으로 복귀
             if (!string.IsNullOrEmpty(startSceneName))
             {
-                if (loadDelayAfterCredits > 0f)
-                    yield return new WaitForSecondsRealtime(loadDelayAfterCredits);
+                if (autoReturnDelayAfterGood > 0f)
+                    yield return new WaitForSecondsRealtime(autoReturnDelayAfterGood);
+
                 LoadScene(startSceneName);
             }
         }
@@ -166,7 +156,8 @@ public class EndingScreen : MonoBehaviour
 
         for (int i = 0; i < text.Length; i++)
         {
-            if (Input.GetMouseButtonDown(0)) // 클릭 시 즉시 완료
+            // 마우스 클릭 시 전체 스킵
+            if (Input.GetMouseButtonDown(0))
             {
                 endingText.text = text;
                 break;
@@ -178,15 +169,32 @@ public class EndingScreen : MonoBehaviour
             float delay = baseDelay + Random.Range(-jitter, jitter);
             if (delay < 0.01f) delay = 0.01f;
 
-            bool isEllipsis = (c == '…') || (c == '.' && i + 2 < text.Length && text[i + 1] == '.' && text[i + 2] == '.');
+            // 말줄임표 (...) / … 처리
+            bool isEllipsis =
+                (c == '…') ||
+                (c == '.' && i + 2 < text.Length && text[i + 1] == '.' && text[i + 2] == '.');
+
             if (isEllipsis)
             {
-                if (c == '.') { endingText.text += ".."; i += 2; }
+                if (c == '.')
+                {
+                    endingText.text += "..";
+                    i += 2;
+                }
                 delay += longPause;
             }
-            else if (c == '\n' || c == '\r') delay += longPause;
-            else if (c == '.' || c == '!' || c == '?') delay += sentencePause;
-            else if (c == ',' || c == ';' || c == ':') delay += commaPause;
+            else if (c == '\n' || c == '\r')
+            {
+                delay += longPause;
+            }
+            else if (c == '.' || c == '!' || c == '?')
+            {
+                delay += sentencePause;
+            }
+            else if (c == ',' || c == ';' || c == ':')
+            {
+                delay += commaPause;
+            }
 
             yield return new WaitForSecondsRealtime(delay);
         }
@@ -209,37 +217,18 @@ public class EndingScreen : MonoBehaviour
         txt.color = new Color(start.r, start.g, start.b, 0f);
     }
 
-    private IEnumerator ScrollCredits()
-    {
-        if (!creditsRoot) yield break;
-
-        ForceCreditsToCenterAnchors();
-        var pos = creditsRoot.anchoredPosition;
-        pos.y = creditsStartY;
-        creditsRoot.anchoredPosition = pos;
-
-        // 화면 높이/크레딧 높이를 이용해 자동 종료 Y 계산
-        float endY = creditsEndY;
-        var parentRT = creditsRoot.parent as RectTransform;
-        if (parentRT)
-            endY = parentRT.rect.height * 0.5f + creditsRoot.rect.height * 0.5f + 10f;
-
-        while (creditsRoot.anchoredPosition.y < endY)
-        {
-            creditsRoot.anchoredPosition += Vector2.up * (creditsSpeed * Time.unscaledDeltaTime);
-            yield return null;
-        }
-    }
-
-
-    // 버튼 클릭 또는 화면 클릭 시 호출
+    // Bad 엔딩에서 클릭(또는 재시작 버튼)으로 호출됨
     void LoadStartScene()
     {
         if (loading) return;
         loading = true;
         Time.timeScale = 1f;
 
-        var target = string.IsNullOrEmpty(restartTargetSceneName) ? "StartScene" : restartTargetSceneName;
+        // restartTargetSceneName이 비어있으면 startSceneName으로
+        var target = string.IsNullOrEmpty(restartTargetSceneName)
+            ? startSceneName
+            : restartTargetSceneName;
+
         Debug.Log($"[EndingScreen] Restart → Load '{target}'");
         LoadScene(target);
     }
@@ -247,14 +236,5 @@ public class EndingScreen : MonoBehaviour
     void LoadScene(string name)
     {
         SceneManager.LoadScene(name, LoadSceneMode.Single);
-    }
-
-    // 🔧 크레딧을 항상 화면 중앙 기준으로 스크롤시키기 위한 앵커/피벗 보정
-    void ForceCreditsToCenterAnchors()
-    {
-        if (!creditsRoot) return;
-        // Middle-Center
-        creditsRoot.anchorMin = creditsRoot.anchorMax = new Vector2(0.5f, 0.5f);
-        creditsRoot.pivot = new Vector2(0.5f, 0.5f);
     }
 }

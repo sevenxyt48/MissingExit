@@ -59,7 +59,7 @@ public class PenaltyManager : MonoBehaviour
     [System.Serializable]
     public class PenaltyStyle
     {
-        public string reasonKey;                // "간섭 금지", "라디오 규칙 위반", "침묵의 규칙 위반", ...
+        public string reasonKey;                // "간섭 금지", "라디오 규칙 위반", ...
         [TextArea] public string messageOverride;
         public AudioClip sfx;
         public Color flashColor = Color.white;
@@ -72,7 +72,7 @@ public class PenaltyManager : MonoBehaviour
 
     float Now => useUnscaledTime ? Time.unscaledTime : Time.time;
 
-    public AudioSource sustainSource;           // Loop 전용(PlayOnAwake off, Loop off)
+    public AudioSource sustainSource;           // Loop 전용
     string sustainingReason;
 
     // 시작/종료 메서드
@@ -163,14 +163,18 @@ public class PenaltyManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 벌칙/안내 재생. countViolation=false면 카운트 없이 연출만.
+    /// 벌칙/안내 재생.
     /// </summary>
     public void ApplyPenalty(
         string reason,
         string message = null,
         AudioClip sfxOverride = null,
         float intensity = 1f,
-        bool countViolation = true)
+        bool countViolation = true,
+        bool ignoreClueGrace = false,       // ★ 추가
+        bool ignoreStartupGrace = false,    // ★ 추가
+        bool ignoreRoomEnterGrace = false   // ★ 추가
+    )
     {
         // 같은 reason 재발 쿨다운
         if (IsBlockedByReasonCooldown(reason))
@@ -185,7 +189,9 @@ public class PenaltyManager : MonoBehaviour
         // 카운트 방식이면 먼저 GM에 질의
         if (countViolation && GameManager.Instance != null)
         {
-            bool accepted = GameManager.Instance.TryReportViolation(reason);
+            bool accepted = GameManager.Instance.TryReportViolation(
+                reason, ignoreClueGrace, ignoreStartupGrace, ignoreRoomEnterGrace);
+
             if (!accepted)
             {
                 SafeResetVisuals();
@@ -221,7 +227,7 @@ public class PenaltyManager : MonoBehaviour
         var clip = sfxOverride ? sfxOverride : defaultPenaltyClip;
         if (audioSource && clip) audioSource.PlayOneShot(clip, sfxVolume);
 
-        // 플래시 (색/알파 적용)
+        // 플래시
         Color useColor = (style != null) ? style.flashColor : flashColor;
         float useAlpha = (style != null) ? style.flashAlpha : flashMaxAlpha;
         if (screenFlash)

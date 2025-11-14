@@ -96,6 +96,7 @@ public class RoomController : MonoBehaviour
         }
         Debug.Log($"[RoomController:{roomId}] 모든 단서 수집 완료 → 문 잠금 해제");
         // 요구대로 해제 시 별도의 연출/페널티 없음(로그만).
+        ProgressionManager.Instance?.MarkRoomCompleted(roomId);
     }
 
     // ───────────────────────────── 유틸 ─────────────────────────────
