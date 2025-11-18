@@ -119,4 +119,10 @@ public class RoomController : MonoBehaviour
             foreach (var c in roomClues) if (c) totalLocal++;
         }
     }
+
+    public bool AllLocalCluesCollected()
+    {
+        return collectedLocal.Count >= totalLocal;
+    }
+
 }
