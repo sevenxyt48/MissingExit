@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: Assets/school/DemoScene/all_objects.unity
+    guid: c206d02e77fbc3148a269062ea0e8069
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: 73aed06b545bea84082f471ec7abc907
+  - enabled: 1
+    path: Assets/Scenes/GameScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 0
+    path: Assets/JP_School classroom_V2/Scenes/School_Classroom.unity
+    guid: b64e7bfed3af07540960a741f9195d89
+  - enabled: 1
+    path: Assets/Scenes/GameEnd.unity
+    guid: b8ed83dc66ea2c845943fd0d969bee32
   m_configObjects: {}
