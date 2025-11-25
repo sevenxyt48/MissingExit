@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int totalClues = 0;
     [SerializeField] private bool autoCountAtStart = true;
 
+    [Header("출구 안내 오브젝트")]
+    [Tooltip("모든 단서 수집 후 Outline을 켤 출구 간판의 Outline 컴포넌트")]
+    [SerializeField] private Behaviour exitSignOutline;
+
     private readonly HashSet<string> collectedClues = new HashSet<string>();
     public int CollectedCount => collectedClues.Count;
     public int TotalClues => totalClues;
@@ -101,6 +105,10 @@ public class GameManager : MonoBehaviour
             totalClues = FindObjectsOfType<ClueItem>(true).Length;
             Debug.Log($"[GM] 총 단서 수: {totalClues}");
         }
+
+        // 출구 간판 Outline은 시작 시 반드시 꺼둔다
+        if (exitSignOutline)
+            exitSignOutline.enabled = false;
 
         if (!Application.CanStreamedLevelBeLoaded(endSceneName))
             Debug.LogError($"[GM] 엔딩 씬 '{endSceneName}' 이(가) Build Settings에 없습니다.");
@@ -193,7 +201,12 @@ public class GameManager : MonoBehaviour
 
             if (!hasEnded && totalClues > 0 && collectedClues.Count >= totalClues)
             {
-                Debug.Log("[GM] 모든 단서 수집 완료 (아직 좋은 엔딩 아님). 출구 스토리 조건까지 충족해야 함.");
+                if (exitSignOutline)
+                {
+                    exitSignOutline.enabled = true;
+                    Debug.Log("[GM] 모든 단서 수집 → 출구 간판 Outline ON");
+                }
+                //Debug.Log("[GM] 모든 단서 수집 완료 (아직 좋은 엔딩 아님). 출구 스토리 조건까지 충족해야 함.");
                 CheckGoodEndingCondition();
             }
         }
