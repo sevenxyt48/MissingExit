@@ -133,6 +133,9 @@ public class ClueItem : MonoBehaviour
 
     void Update()
     {
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused) 
+            return;
+
         if (collected) return;
 
         // 1) 빛(Outline) 판정: 항상 거리 + LOS 기준으로

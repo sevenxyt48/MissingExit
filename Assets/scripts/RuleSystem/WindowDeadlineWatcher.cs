@@ -33,6 +33,8 @@ public class WindowDeadlineWatcher : MonoBehaviour
 
     bool ActiveNow()
     {
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused) return false;
+
         if (Time.time - enableAt < startupGrace) return false;
         var gm = GameManager.Instance;
         if (gm && !string.IsNullOrEmpty(onlyInRoom) && gm.CurrentRoomId != onlyInRoom) return false;

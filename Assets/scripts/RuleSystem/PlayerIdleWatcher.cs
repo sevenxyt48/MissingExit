@@ -44,6 +44,8 @@ public class PlayerIdleWatcher : MonoBehaviour
 
     bool ActiveNow()
     {
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused) return false;
+
         var gm = GameManager.Instance;
         bool ok = true;
 
