@@ -11,7 +11,13 @@ public class PenaltyManager : MonoBehaviour
     [Header("참조(References)")]
     public Image screenFlash;
     public AudioSource audioSource;
-    public TMP_Text popupText;
+
+    [Tooltip("규칙 이름(타이틀)을 표시할 TMP_Text")]
+    public TMP_Text titleText;
+
+    [Tooltip("규칙 설명/내용을 표시할 TMP_Text")]
+    public TMP_Text bodyText;
+
     public CanvasGroup popupGroup;
     public Camera cameraToShake;
 
@@ -22,8 +28,11 @@ public class PenaltyManager : MonoBehaviour
 
     [Header("팝업(Popup)")]
     public bool useTypewriter = true;
+    [Tooltip("초당 글자 수")]
     public float popupCps = 22f;
+    [Tooltip("문구가 다 나온 뒤 유지 시간(초)")]
     public float popupHold = 1.25f;
+    [Tooltip("등장/퇴장 페이드 시간(초)")]
     public float popupFade = 0.25f;
 
     [Header("카메라 흔들림(Shake)")]
@@ -42,7 +51,9 @@ public class PenaltyManager : MonoBehaviour
     [Tooltip("같은 규칙(reason)이 다시 위반으로 판정되려면 필요한 최소 시간(초)")]
     public float defaultRepeatCooldown = 4f;
 
-    [System.Serializable] public class ReasonCooldown { public string reasonKey; public float seconds = 4f; }
+    [System.Serializable]
+    public class ReasonCooldown { public string reasonKey; public float seconds = 4f; }
+
     [Tooltip("특정 규칙만 재발 쿨다운을 덮어쓰고 싶다면 여기서 지정")]
     public ReasonCooldown[] repeatCooldowns;
 
@@ -59,23 +70,42 @@ public class PenaltyManager : MonoBehaviour
     [System.Serializable]
     public class PenaltyStyle
     {
+        [Tooltip("GameManager.TryReportViolation 에 넘기는 reason 문자열과 동일해야 함")]
         public string reasonKey;                // "간섭 금지", "라디오 규칙 위반", ...
+
+        [Tooltip("여기에 뭔가 쓰면 Penalty 호출 시 message가 비어있을 때 이 텍스트를 대신 사용")]
         [TextArea] public string messageOverride;
+
+        [Tooltip("이 규칙 전용 효과음 (비워두면 기본 클립 사용)")]
         public AudioClip sfx;
+
+        [Tooltip("이 규칙 전용 화면 플래시 색")]
         public Color flashColor = Color.white;
-        [Range(0f, 1f)] public float flashAlpha = 0.55f;
-        [Range(0f, 3f)] public float intensity = 1f;
-        public bool countViolation = true;     // false면 카운트하지 않고 안내만
+
+        [Range(0f, 1f)]
+        [Tooltip("이 규칙 전용 플래시 최대 알파 (0~1)")]
+        public float flashAlpha = 0.55f;
+
+        [Range(0f, 3f)]
+        [Tooltip("카메라 흔들림/플래시 강도 배율")]
+        public float intensity = 1f;
+
+        [Tooltip("false면 이 규칙은 벌점 카운트 없이 연출만 표시")]
+        public bool countViolation = true;
     }
+
     [Header("규칙별 스타일(선택)")]
     public PenaltyStyle[] styles;
 
     float Now => useUnscaledTime ? Time.unscaledTime : Time.time;
 
+    [Header("지속 재생용(예: 알람소리)")]
     public AudioSource sustainSource;           // Loop 전용
     string sustainingReason;
 
-    // 시작/종료 메서드
+    // ─────────────────────────────────────
+    //  지속 사운드 컨트롤
+    // ─────────────────────────────────────
     public void StartSustain(string reason, AudioClip clip, float vol = 0.8f)
     {
         if (!sustainSource || !clip) return;
@@ -90,10 +120,14 @@ public class PenaltyManager : MonoBehaviour
     public void StopSustain(string reason)
     {
         if (!sustainSource) return;
-        if (sustainingReason == reason) { sustainSource.Stop(); sustainSource.clip = null; sustainingReason = null; }
+        if (sustainingReason == reason)
+        {
+            sustainSource.Stop();
+            sustainSource.clip = null;
+            sustainingReason = null;
+        }
     }
 
-    // 지속 루프 시작(앵커 위치로 재생)
     public void StartSustain(string reason, AudioClip clip, float vol, Transform anchor)
     {
         if (!sustainSource || !clip) return;
@@ -102,21 +136,33 @@ public class PenaltyManager : MonoBehaviour
         sustainSource.clip = clip;
         sustainSource.volume = vol;
         sustainSource.loop = true;
-        if (anchor) sustainSource.transform.position = anchor.position; // 3D 위치 고정
+        if (anchor) sustainSource.transform.position = anchor.position; // 3D 위치
         sustainSource.Play();
     }
 
-
+    // ─────────────────────────────────────
+    //  수명주기
+    // ─────────────────────────────────────
     void Awake()
     {
-        if (Instance == null) { Instance = this; DontDestroyOnLoad(gameObject); }
-        else { Destroy(gameObject); return; }
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         if (!cameraToShake) cameraToShake = Camera.main;
-        if (popupText && !popupGroup)
+
+        // popupGroup이 비어 있으면 BodyText에서 찾아서 붙이기
+        if (bodyText && !popupGroup)
         {
-            popupGroup = popupText.GetComponent<CanvasGroup>();
-            if (!popupGroup) popupGroup = popupText.gameObject.AddComponent<CanvasGroup>();
+            popupGroup = bodyText.GetComponent<CanvasGroup>();
+            if (!popupGroup) popupGroup = bodyText.gameObject.AddComponent<CanvasGroup>();
         }
 
         SafeResetVisuals();
@@ -135,6 +181,9 @@ public class PenaltyManager : MonoBehaviour
         if (cooldown > 0f) cooldown -= dt;
     }
 
+    // ─────────────────────────────────────
+    //  Reason별 쿨다운
+    // ─────────────────────────────────────
     float GetRepeatCooldown(string reason)
     {
         if (repeatCooldowns != null)
@@ -142,7 +191,8 @@ public class PenaltyManager : MonoBehaviour
             for (int i = 0; i < repeatCooldowns.Length; i++)
             {
                 var rc = repeatCooldowns[i];
-                if (rc != null && rc.reasonKey == reason) return Mathf.Max(0f, rc.seconds);
+                if (rc != null && rc.reasonKey == reason)
+                    return Mathf.Max(0f, rc.seconds);
             }
         }
         return Mathf.Max(0f, defaultRepeatCooldown);
@@ -162,6 +212,9 @@ public class PenaltyManager : MonoBehaviour
         reasonBlockUntil[reason] = Now + GetRepeatCooldown(reason);
     }
 
+    // ─────────────────────────────────────
+    //  메인 진입점
+    // ─────────────────────────────────────
     /// <summary>
     /// 벌칙/안내 재생.
     /// </summary>
@@ -171,9 +224,9 @@ public class PenaltyManager : MonoBehaviour
         AudioClip sfxOverride = null,
         float intensity = 1f,
         bool countViolation = true,
-        bool ignoreClueGrace = false,       // ★ 추가
-        bool ignoreStartupGrace = false,    // ★ 추가
-        bool ignoreRoomEnterGrace = false   // ★ 추가
+        bool ignoreClueGrace = false,
+        bool ignoreStartupGrace = false,
+        bool ignoreRoomEnterGrace = false
     )
     {
         // 같은 reason 재발 쿨다운
@@ -213,8 +266,15 @@ public class PenaltyManager : MonoBehaviour
         if (!string.IsNullOrEmpty(reason) && styles != null)
         {
             foreach (var s in styles)
-                if (s != null && s.reasonKey == reason) { style = s; break; }
+            {
+                if (s != null && s.reasonKey == reason)
+                {
+                    style = s;
+                    break;
+                }
+            }
         }
+
         if (style != null)
         {
             if (string.IsNullOrEmpty(message)) message = style.messageOverride;
@@ -223,11 +283,11 @@ public class PenaltyManager : MonoBehaviour
             countViolation = countViolation && style.countViolation;
         }
 
-        // 사운드
+        // ─ 사운드 ─
         var clip = sfxOverride ? sfxOverride : defaultPenaltyClip;
         if (audioSource && clip) audioSource.PlayOneShot(clip, sfxVolume);
 
-        // 플래시
+        // ─ 플래시 ─
         Color useColor = (style != null) ? style.flashColor : flashColor;
         float useAlpha = (style != null) ? style.flashAlpha : flashMaxAlpha;
         if (screenFlash)
@@ -236,14 +296,20 @@ public class PenaltyManager : MonoBehaviour
             flashCo = StartCoroutine(CoFlash(useColor, useAlpha, intensity));
         }
 
-        // 팝업
-        if (popupText && !string.IsNullOrEmpty(message))
+        // ─ 팝업(제목 + 본문) ─
+        if (titleText)
+        {
+            // reason이 null이면 그냥 빈 문자열
+            titleText.text = string.IsNullOrEmpty(reason) ? "" : reason;
+        }
+
+        if (bodyText && !string.IsNullOrEmpty(message))
         {
             if (popupCo != null) StopCoroutine(popupCo);
             popupCo = StartCoroutine(CoPopup(message));
         }
 
-        // 카메라 흔들림
+        // ─ 카메라 흔들림 ─
         if (cameraToShake && shakeAmount > 0f && shakeDuration > 0f)
         {
             if (shakeCo != null) StopCoroutine(shakeCo);
@@ -251,23 +317,35 @@ public class PenaltyManager : MonoBehaviour
         }
     }
 
-    // --- 안전 리셋(차단/Awake 시 호출) ---
+    // ─────────────────────────────────────
+    //  비주얼 리셋
+    // ─────────────────────────────────────
     void SafeResetVisuals()
     {
         if (screenFlash)
         {
             screenFlash.enabled = false;
-            var c = flashColor; c.a = 0f; screenFlash.color = c;
+            var c = flashColor; c.a = 0f;
+            screenFlash.color = c;
         }
+
         if (popupGroup)
         {
             popupGroup.alpha = 0f;
             popupGroup.gameObject.SetActive(true);
         }
+
+        if (bodyText) bodyText.text = "";
+        if (titleText) titleText.text = "";
     }
 
+    // ─────────────────────────────────────
+    //  코루틴들
+    // ─────────────────────────────────────
     IEnumerator CoFlash(Color color, float maxAlpha, float intensity)
     {
+        if (!screenFlash) yield break;
+
         screenFlash.enabled = true;
         Color c = color;
         float half = flashDuration * 0.5f;
@@ -277,23 +355,40 @@ public class PenaltyManager : MonoBehaviour
         while (t < half)
         {
             t += useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
-            c.a = Mathf.Lerp(0f, peak, t / half); screenFlash.color = c; yield return null;
+            c.a = Mathf.Lerp(0f, peak, t / half);
+            screenFlash.color = c;
+            yield return null;
         }
+
         t = 0f;
         while (t < half)
         {
             t += useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
-            c.a = Mathf.Lerp(peak, 0f, t / half); screenFlash.color = c; yield return null;
+            c.a = Mathf.Lerp(peak, 0f, t / half);
+            screenFlash.color = c;
+            yield return null;
         }
+
         screenFlash.enabled = false;
     }
 
-    IEnumerator CoFlash(float intensity) { yield return CoFlash(flashColor, flashMaxAlpha, intensity); }
+    IEnumerator CoFlash(float intensity)
+    {
+        yield return CoFlash(flashColor, flashMaxAlpha, intensity);
+    }
 
     IEnumerator CoPopup(string msg)
     {
+        if (!popupGroup)
+        {
+            // CanvasGroup이 없으면 그냥 텍스트만 바꿔줌
+            if (bodyText) bodyText.text = msg;
+            yield break;
+        }
+
         popupGroup.gameObject.SetActive(true);
 
+        // 페이드 인
         float t = 0f;
         while (t < popupFade)
         {
@@ -303,15 +398,18 @@ public class PenaltyManager : MonoBehaviour
         }
         popupGroup.alpha = 1f;
 
+        // 타자기 or 바로 출력
         if (useTypewriter) yield return StartCoroutine(CoType(msg));
-        else popupText.text = msg;
+        else if (bodyText) bodyText.text = msg;
 
+        // 유지 시간
         if (popupHold > 0f)
         {
             if (useUnscaledTime) yield return new WaitForSecondsRealtime(popupHold);
             else yield return new WaitForSeconds(popupHold);
         }
 
+        // 페이드 아웃
         t = 0f;
         while (t < popupFade)
         {
@@ -325,12 +423,15 @@ public class PenaltyManager : MonoBehaviour
 
     IEnumerator CoType(string full)
     {
-        popupText.text = "";
+        if (!bodyText)
+            yield break;
+
+        bodyText.text = "";
         float baseDelay = 1f / Mathf.Max(0.001f, popupCps);
 
         for (int i = 0; i < full.Length; i++)
         {
-            popupText.text += full[i];
+            bodyText.text += full[i];
 
             float delay = baseDelay;
             char c = full[i];
@@ -345,6 +446,8 @@ public class PenaltyManager : MonoBehaviour
 
     IEnumerator CoShake(float intensity)
     {
+        if (!cameraToShake) yield break;
+
         Vector3 origin = cameraToShake.transform.localPosition;
         float t = 0f;
         float amp = shakeAmount * Mathf.Clamp01(intensity);
@@ -355,6 +458,7 @@ public class PenaltyManager : MonoBehaviour
             cameraToShake.transform.localPosition = origin + Random.insideUnitSphere * amp;
             yield return null;
         }
+
         cameraToShake.transform.localPosition = origin;
     }
 }
