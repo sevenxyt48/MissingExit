@@ -2503,7 +2503,7 @@ GameObject:
   - component: {fileID: 96833790}
   - component: {fileID: 96833789}
   m_Layer: 0
-  m_Name: HineText
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2525,8 +2525,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.6624756, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: 1.7, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &96833789
 MonoBehaviour:
@@ -2550,8 +2550,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2581,7 +2581,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2640,7 +2640,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9810,6 +9810,81 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5fc7a21d04c1f8489eaf6aaa730bc0d, type: 3}
+--- !u!1 &243149095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 243149096}
+  - component: {fileID: 243149098}
+  - component: {fileID: 243149097}
+  m_Layer: 5
+  m_Name: KeySelect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &243149096
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243149095}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1142010067}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 820, y: -460}
+  m_SizeDelta: {x: 109, y: 38}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &243149097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243149095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f2048fe0d3a1c6046bb74270b1534b52, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &243149098
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243149095}
+  m_CullTransparentMesh: 1
 --- !u!4 &248876722 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6737001851996007260, guid: 1b5d443be3df022429992f698f6a8c44, type: 3}
@@ -10305,7 +10380,7 @@ GameObject:
   - component: {fileID: 254759533}
   - component: {fileID: 254759532}
   m_Layer: 0
-  m_Name: HineText
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10319,7 +10394,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254759530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.07000017}
+  m_LocalPosition: {x: 0, y: 0, z: -0.009}
   m_LocalScale: {x: 0.08000002, y: 0.08, z: 0.008000005}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10327,8 +10402,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.61, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: -1.8, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &254759532
 MonoBehaviour:
@@ -10352,8 +10427,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10383,7 +10458,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -10442,7 +10517,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19633,6 +19708,81 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5f0eee3085e9f84c802bffceecb61f7, type: 3}
+--- !u!1 &545251738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 545251739}
+  - component: {fileID: 545251741}
+  - component: {fileID: 545251740}
+  m_Layer: 0
+  m_Name: HintImg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &545251739
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545251738}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1142010067}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 677, y: -460}
+  m_SizeDelta: {x: 118, y: 48}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &545251740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545251738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: d7666db624b86a742a692901cc435f85, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &545251741
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545251738}
+  m_CullTransparentMesh: 1
 --- !u!1 &546682249
 GameObject:
   m_ObjectHideFlags: 0
@@ -21635,7 +21785,7 @@ GameObject:
   - component: {fileID: 617107511}
   - component: {fileID: 617107510}
   m_Layer: 0
-  m_Name: HineText (2)
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21657,8 +21807,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.599, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: -1.599, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &617107510
 MonoBehaviour:
@@ -21682,8 +21832,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -21713,7 +21863,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -21772,7 +21922,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23094,7 +23244,7 @@ GameObject:
   - component: {fileID: 656472000}
   - component: {fileID: 656471999}
   m_Layer: 0
-  m_Name: HineText (1)
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23116,8 +23266,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.723, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: -1.723, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &656471999
 MonoBehaviour:
@@ -23141,8 +23291,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -23172,7 +23322,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -23231,7 +23381,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23446,7 +23596,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 660, y: -390}
+  m_AnchoredPosition: {x: 660, y: 1}
   m_SizeDelta: {x: 248, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &667275410
@@ -25662,7 +25812,7 @@ GameObject:
   - component: {fileID: 734887934}
   - component: {fileID: 734887933}
   m_Layer: 0
-  m_Name: HineText (1)
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25676,7 +25826,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 734887931}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0.096}
+  m_LocalPosition: {x: 0, y: 0, z: 0.05}
   m_LocalScale: {x: 0.08000002, y: 0.08, z: 0.008000005}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25684,8 +25834,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.61, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: -1.8, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &734887933
 MonoBehaviour:
@@ -25709,8 +25859,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -25740,7 +25890,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -25799,7 +25949,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26951,7 +27101,7 @@ GameObject:
   - component: {fileID: 769744894}
   - component: {fileID: 769744893}
   m_Layer: 0
-  m_Name: HineText
+  m_Name: 2-4Note_HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26973,7 +27123,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.005002582, y: 0.044}
+  m_AnchoredPosition: {x: 0.005002582, y: 0.039}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &769744893
@@ -28439,7 +28589,7 @@ GameObject:
   - component: {fileID: 810815367}
   - component: {fileID: 810815366}
   m_Layer: 0
-  m_Name: HineText (1)
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28461,8 +28611,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.672, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: 1.672, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &810815366
 MonoBehaviour:
@@ -28486,8 +28636,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -28517,7 +28667,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -28576,7 +28726,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -29009,7 +29159,7 @@ GameObject:
   - component: {fileID: 824561902}
   - component: {fileID: 824561901}
   m_Layer: 0
-  m_Name: HineText (2)
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29031,8 +29181,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.5999994, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: -1.5999994, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &824561901
 MonoBehaviour:
@@ -29056,8 +29206,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -29087,7 +29237,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -29146,7 +29296,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -33911,7 +34061,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!65 &984380697
@@ -34356,7 +34506,7 @@ GameObject:
   - component: {fileID: 1005944108}
   - component: {fileID: 1005944107}
   m_Layer: 0
-  m_Name: HineText (1)
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34378,8 +34528,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.7275257, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: 1.7275257, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1005944107
 MonoBehaviour:
@@ -34403,8 +34553,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -34434,7 +34584,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -34493,7 +34643,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -34568,7 +34718,7 @@ GameObject:
   - component: {fileID: 1008084192}
   - component: {fileID: 1008084191}
   m_Layer: 0
-  m_Name: HineText
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34590,7 +34740,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.732, y: 1.024}
+  m_AnchoredPosition: {x: 1.732, y: 1}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1008084191
@@ -34613,7 +34763,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: E open door
+  m_text: PRESS E
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
@@ -35660,7 +35810,7 @@ GameObject:
   - component: {fileID: 1054694987}
   - component: {fileID: 1054694986}
   m_Layer: 0
-  m_Name: HineText
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35682,8 +35832,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.672, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: 1.672, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1054694986
 MonoBehaviour:
@@ -35707,8 +35857,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -35797,7 +35947,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -36696,7 +36846,7 @@ GameObject:
   - component: {fileID: 1103735149}
   - component: {fileID: 1103735148}
   m_Layer: 0
-  m_Name: HineText
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36718,8 +36868,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.778, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: -1.778, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1103735148
 MonoBehaviour:
@@ -36743,8 +36893,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -36833,7 +36983,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -37521,6 +37671,8 @@ RectTransform:
   - {fileID: 232419483}
   - {fileID: 1697387411}
   - {fileID: 831774508}
+  - {fileID: 243149096}
+  - {fileID: 545251739}
   m_Father: {fileID: 1760714412}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -40110,7 +40262,7 @@ GameObject:
   - component: {fileID: 1241174985}
   - component: {fileID: 1241174984}
   m_Layer: 0
-  m_Name: HineText (1)
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40132,8 +40284,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.599, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: -1.599, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1241174984
 MonoBehaviour:
@@ -40157,8 +40309,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -40188,7 +40340,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -40247,7 +40399,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -50566,7 +50718,7 @@ GameObject:
   - component: {fileID: 1568918344}
   - component: {fileID: 1568918343}
   m_Layer: 0
-  m_Name: HineText (1)
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50588,7 +50740,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.732, y: 1.024}
+  m_AnchoredPosition: {x: 1.732, y: 1}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1568918343
@@ -50611,7 +50763,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: E open door
+  m_text: PRESS E
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
@@ -51988,7 +52140,7 @@ GameObject:
   - component: {fileID: 1643114184}
   - component: {fileID: 1643114183}
   m_Layer: 0
-  m_Name: HineText
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52010,8 +52162,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.7275257, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: 1.7275257, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1643114183
 MonoBehaviour:
@@ -52035,8 +52187,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -52125,7 +52277,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -55205,7 +55357,7 @@ GameObject:
   - component: {fileID: 1733459470}
   - component: {fileID: 1733459469}
   m_Layer: 0
-  m_Name: HineText (1)
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55227,8 +55379,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.6624756, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: 1.6624756, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1733459469
 MonoBehaviour:
@@ -55252,8 +55404,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -55283,7 +55435,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -55342,7 +55494,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -56911,7 +57063,7 @@ GameObject:
   - component: {fileID: 1766034127}
   - component: {fileID: 1766034126}
   m_Layer: 0
-  m_Name: hintText
+  m_Name: 2-4_Blackboard_hintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56933,7 +57085,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.149}
+  m_AnchoredPosition: {x: 0, y: 0.295}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1766034126
@@ -56956,10 +57108,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "E: \uC9C0\uC6B0\uAE30"
+  m_text: "F: \uC9C0\uC6B0\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1d7b8890968e94b4da87fc7d17da8b6a, type: 2}
-  m_sharedMaterial: {fileID: -1183830716614998879, guid: 1d7b8890968e94b4da87fc7d17da8b6a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c7c2b32136caf85449d973a1013b5693, type: 2}
+  m_sharedMaterial: {fileID: 198438410836109434, guid: c7c2b32136caf85449d973a1013b5693, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -57048,7 +57200,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1183830716614998879, guid: 1d7b8890968e94b4da87fc7d17da8b6a, type: 2}
+  - {fileID: 198438410836109434, guid: c7c2b32136caf85449d973a1013b5693, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -61446,7 +61598,7 @@ GameObject:
   - component: {fileID: 1868161115}
   - component: {fileID: 1868161114}
   m_Layer: 0
-  m_Name: HineText (1)
+  m_Name: HintText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61468,8 +61620,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.5999994, y: 1.04}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: -1.5999994, y: 1}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1868161114
 MonoBehaviour:
@@ -61493,8 +61645,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
-  m_sharedMaterial: {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -61524,7 +61676,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -61583,7 +61735,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3750354048185671587, guid: b05ca8606087f464fa00a0c877735d8b, type: 2}
+  - {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -71387,7 +71539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTag: Player
   interactionDistance: 2
-  key: 101
+  key: 102
   hint: {fileID: 1766034124}
   onInteract:
     m_PersistentCalls:
