@@ -631,8 +631,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Restart
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
+  m_sharedMaterial: {fileID: 2821764232428426685, guid: fc2cefb9eafde8648b97df22d38d64f0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -695,7 +695,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1776418440
@@ -874,7 +874,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endingText: {fileID: 2063134996}
   restartButton: {fileID: 285001998}
-  creditsRoot: {fileID: 0}
   blackBG: {fileID: 787149271}
   useTypewriter: 1
   cps: 9
@@ -885,12 +884,8 @@ MonoBehaviour:
   fadeOutEndingText: 1
   fadeOutDelay: 0.6
   fadeOutDuration: 1.2
-  creditsStartY: -1100
-  creditsEndY: 900
-  creditsSpeed: 60
-  creditsDelayAfterText: 0.8
   startSceneName: StartScene
-  loadDelayAfterCredits: 0.5
+  autoReturnDelayAfterGood: 1
   restartTargetSceneName: StartScene
   fallbackGoodText: "\u201C\uB4DC\uB514\uC5B4 \uBAA8\uB4E0 \uC9C4\uC2E4\uACFC \uB9C8\uC8FC\uD55C\uB2E4.
     \n\uACFC\uAC70\uC758 \uC790\uC2E0\uACFC \uD53C\uD574\uC790\uC758 \uADF8\uB9BC\uC790\uAC00
