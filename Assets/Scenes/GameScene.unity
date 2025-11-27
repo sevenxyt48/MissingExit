@@ -3958,8 +3958,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clueID: 
   useNameAsId: 1
-  clueTitle: "\uBCBD\uC7A5 \uC0AC\uC9C4 \uADFC\uC811"
-  clueContent: "\uD750\uB9BF\uD55C \uC2E4\uB8E8\uC5E3"
+  clueTitle: "\uBCBD\uC7A5 \uC0AC\uC9C4 \uAD00\uCC30"
+  clueContent: "\"\uC5B4\uB460 \uC18D\uC5D0 \uBB34\uC5B8\uAC00 \uC788\uB2E4. \uC544\uB2C8,
+    \uCC98\uC74C\uBD80\uD130 \uADF8\uACF3\uC5D0 \uAC07\uD600 \uC788\uC5C8\uB2E4.\""
   clueImage: {fileID: 21300000, guid: 544e7b48bcce66940afae89a19b35ffb, type: 3}
   clueSound: {fileID: 8300000, guid: 8edabeb5749cf9b43abc020def7d0274, type: 3}
   interactPrompt: {fileID: 145959573}
@@ -8536,6 +8537,10 @@ PrefabInstance:
       propertyPath: m_ReflectionProbeUsage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7478450277143950961, guid: 1b5d443be3df022429992f698f6a8c44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d50eb716f3820734da84348d68dc3572, type: 2}
     - target: {fileID: 7580177762551272705, guid: 1b5d443be3df022429992f698f6a8c44, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.865
@@ -11126,140 +11131,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: bed407a1c4322c2459ee187fd3237326, type: 3}
   m_PrefabInstance: {fileID: 185743044}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &281311188
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 281311189}
-  - component: {fileID: 281311191}
-  - component: {fileID: 281311190}
-  m_Layer: 5
-  m_Name: HintText
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &281311189
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281311188}
-  m_LocalRotation: {x: 0.006855031, y: 0.7070896, z: 0.001328272, w: 0.7070896}
-  m_LocalPosition: {x: 0, y: 0, z: 0.049990874}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 635975772}
-  m_LocalEulerAnglesHint: {x: 0.448, y: 90.003, z: 0.663}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000009638825, y: 6.580001}
-  m_SizeDelta: {x: 100, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &281311190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281311188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Press F
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1d7b8890968e94b4da87fc7d17da8b6a, type: 2}
-  m_sharedMaterial: {fileID: -1183830716614998879, guid: 1d7b8890968e94b4da87fc7d17da8b6a, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 5
-  m_fontSizeBase: 5
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &281311191
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281311188}
-  m_CullTransparentMesh: 1
 --- !u!1 &283089833
 GameObject:
   m_ObjectHideFlags: 0
@@ -22674,7 +22545,6 @@ RectTransform:
   m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 281311189}
   - {fileID: 1171316784}
   m_Father: {fileID: 300923929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -28437,9 +28307,9 @@ MonoBehaviour:
   clueID: 
   useNameAsId: 1
   clueTitle: "\uB178\uD2B8 \uD68D\uB4DD"
-  clueContent: "\u201C\uBCF4\uB294 \uAC83\uC774 \uB4E3\uB294 \uAC83\uC774 \uC544\uB2C8\uB2E4,
-    \uB098\uB294 \uC544\uBB34 \uB9D0\uB3C4 \uD558\uC9C0 \uC54A\uC558\uB2E4.\u201D"
-  clueImage: {fileID: 21300000, guid: 5a775cb54886d3a46b7960800eec06fc, type: 3}
+  clueContent: "\"\uB208\uACFC \uADC0\uB97C \uB9C9\uC73C\uB824 \uC560\uC4F4 \uD754\uC801\uC774\uB2E4.
+    \uCE68\uBB35\uC740 \uB3D9\uC758\uC640 \uB2E4\uB97C \uBC14 \uC5C6\uB2E4.\""
+  clueImage: {fileID: 21300000, guid: f4add3d8e57c558448b66082b2c7dee5, type: 3}
   clueSound: {fileID: 8300000, guid: 80b717f8bf386c04bafec2ae2b5f98f4, type: 3}
   interactPrompt: {fileID: 76842730}
   promptText: {fileID: 0}
@@ -35972,8 +35842,8 @@ MonoBehaviour:
   clueID: 
   useNameAsId: 1
   clueTitle: "\uD750\uB9BF\uD55C \uC0AC\uC9C4 \uAD00\uCC30"
-  clueContent: "\uBCF5\uB3C4\uC5D0\uC11C \uD750\uB9BF\uD558\uAC8C \uC6C0\uC9C1\uC774\uB294
-    \uBA87 \uAC1C\uC758 \uC2E4\uB8E8\uC5E3"
+  clueContent: "\"\uCD08\uC810\uC774 \uB098\uAC04 \uC0AC\uC9C4\uC774\uB2E4. \uD558\uC9C0\uB9CC
+    \uB204\uAC00 \uB204\uAD6C\uC778\uC9C0\uB294... \uC54C\uACE0 \uC788\uB2E4.\""
   clueImage: {fileID: 21300000, guid: ae7634c7d18926245bcb28d3f722e682, type: 3}
   clueSound: {fileID: 8300000, guid: 6f7c5f9ee15e37947a7fcf91025c3b35, type: 3}
   interactPrompt: {fileID: 595428616}
@@ -41709,9 +41579,9 @@ MonoBehaviour:
   clueID: 
   useNameAsId: 1
   clueTitle: "\uD30C\uC190\uB41C \uB178\uD2B8 \uD68D\uB4DD"
-  clueContent: "\u201C\uB098\uB294 \uC798\uBABB\uD55C \uAC8C \uC5C6\uC5B4, \uADF8\uB4E4\uC740
-    \uB108\uBB34 \uC608\uBBFC\uD574.\u201D"
-  clueImage: {fileID: 21300000, guid: afb2452e942295f43a1a1041cb260da0, type: 3}
+  clueContent: "\"\uBD84\uB178\uB85C \uAFB9\uAFB9 \uB20C\uB7EC \uC4F4 \uC790\uAD6D.
+    \uC885\uC774\uAC00 \uCC22\uC5B4\uC9C8 \uB4EF\uD55C \uC545\uC758\uAC00 \uB290\uAEF4\uC9C4\uB2E4.\""
+  clueImage: {fileID: 21300000, guid: 60d74441ab1f5974192c30a43d13cfb4, type: 3}
   clueSound: {fileID: 8300000, guid: 80b717f8bf386c04bafec2ae2b5f98f4, type: 3}
   interactPrompt: {fileID: 851020259}
   promptText: {fileID: 0}
@@ -46572,7 +46442,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -0.68, y: -0.024}
-  m_SizeDelta: {x: 250, y: 60}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1424233271
 MonoBehaviour:
@@ -54461,7 +54331,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 88c99499d86122448b46c442ac19b258, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 708141677c54e464fa398ce5af3ff1cc, type: 2}
+      objectReference: {fileID: 2100000, guid: 5c3342133d3e5aa429e3cb0995719e70, type: 2}
     - target: {fileID: 3300000, guid: 88c99499d86122448b46c442ac19b258, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -55247,13 +55117,13 @@ MonoBehaviour:
   clueID: 
   useNameAsId: 1
   clueTitle: "\uC77C\uAE30 \uD68D\uB4DD"
-  clueContent: "\u201C\uC544\uBB34\uB3C4 \uB098\uB97C \uC2E0\uACBD \uC4F0\uC9C0 \uC54A\uC544,
-    \uB098\uB294 \uB2E4\uC2DC \uBE48 \uC790\uB9AC\uC5D0 \uC549\uC558\uB2E4. \uC18C\uB9AC\uB3C4
-    \uBAA8\uB450 \uC0AC\uB77C\uC9C4 \uAC83 \uAC19\uB2E4.\u201D"
-  clueImage: {fileID: 21300000, guid: 5a775cb54886d3a46b7960800eec06fc, type: 3}
+  clueContent: "\"\uCD95\uCD95\uD558\uAC8C \uC816\uC740 \uD398\uC774\uC9C0\uC5D0\uC11C
+    \uBB3C\uBE44\uB9B0\uB0B4\uAC00 \uB09C\uB2E4. \uB204\uAD70\uAC00\uC758 \uACE0\uB3C5\uC774
+    \uBB3B\uC5B4 \uB098\uC628\uB2E4.\""
+  clueImage: {fileID: 21300000, guid: 2599e3b644fe2734d82d8aa5228e4f20, type: 3}
   clueSound: {fileID: 8300000, guid: 8246b17d2488b1e459cad4a36c75ee03, type: 3}
   interactPrompt: {fileID: 300923928}
-  promptText: {fileID: 281311190}
+  promptText: {fileID: 0}
   interactKey: 102
   disableColliderOnCollect: 1
   hideRendererOnCollect: 1
@@ -56933,8 +56803,8 @@ MonoBehaviour:
   clueID: 
   useNameAsId: 1
   clueTitle: "\uB3C4\uBC1C \uBB38\uAD6C \uAD00\uCC30"
-  clueContent: "\u201C\uAD1C\uCC2E\uC544, \uC544\uBB34\uB3C4 \uAE30\uC5B5\uD558\uC9C0
-    \uC54A\uC744 \uAC70\uC57C.\u201D"
+  clueContent: "\"\uB204\uAD70\uAC00\uB97C \uC870\uB871\uD558\uB294 \uB099\uC11C.
+    \uC77D\uB294 \uC21C\uAC04 \uB4F1 \uB4A4\uAC00 \uC11C\uB298\uD574\uC9C4\uB2E4.\""
   clueImage: {fileID: 21300000, guid: 9560753f537773c48ba148f00b9405cb, type: 3}
   clueSound: {fileID: 8300000, guid: 281e0b6a65b5b714da75382524e66dd3, type: 3}
   interactPrompt: {fileID: 106673923}
@@ -63986,8 +63856,8 @@ MonoBehaviour:
   clueID: 
   useNameAsId: 1
   clueTitle: "\uCE60\uD310 \uAD00\uCC30"
-  clueContent: "\u201C\uADF8\uAC00 \uB610 \uC654\uC5B4, \uB098\uB294 \uC544\uBB34\uC5D0\uAC8C\uB3C4
-    \uB9D0\uD560 \uC218 \uC5C6\uC5B4.\u201D"
+  clueContent: "\"\uC190\uD1B1\uC73C\uB85C \uAE01\uC740 \uB4EF\uD55C \uBD84\uD544
+    \uC790\uAD6D. \uBE44\uBA85\uC18C\uB9AC\uAC00 \uB4E4\uB9AC\uB294 \uB4EF\uD558\uB2E4.\""
   clueImage: {fileID: 21300000, guid: 21ce44090a20e604aa8fabfe5efc3bf4, type: 3}
   clueSound: {fileID: 0}
   interactPrompt: {fileID: 2119394665}
@@ -64751,10 +64621,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clueID: 
   useNameAsId: 1
-  clueTitle: "\uD3B8\uC9C0 \uD68D\uB4DD"
-  clueContent: "\u201C\u2026\uB9D0\uD560 \uC218 \uC5C6\uC5B4, \uADF8\uB4E4\uC774
-    \uB098\uB97C \uBE44\uC6C3\uC744 \uAC70\uC57C.\u201D"
-  clueImage: {fileID: 21300000, guid: f8922c3ed4055b94eaf0eb0903620ebd, type: 3}
+  clueTitle: "\uAD6C\uACA8\uC9C4 \uD3B8\uC9C0"
+  clueContent: "\"\uC804\uD558\uC9C0 \uBABB\uD55C \uD3B8\uC9C0\uB2E4. \uC4F0\uB294
+    \uB0B4\uB0B4 \uC190\uC744 \uB5A8\uC5C8\uB358 \uAC83 \uAC19\uB2E4.\""
+  clueImage: {fileID: 21300000, guid: 939a077ae971c864faa3df507f80dd82, type: 3}
   clueSound: {fileID: 8300000, guid: 4591a4396f32ba34db65191ac0cfd146, type: 3}
   interactPrompt: {fileID: 269199261}
   promptText: {fileID: 0}
