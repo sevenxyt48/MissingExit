@@ -63,6 +63,8 @@ public class ClueIdleWatcher : MonoBehaviour
 
     bool ActiveNow()
     {
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused) return false;
+
         var gm = GameManager.Instance;
 
         if (Time.time - startTime < startupGrace) return false;

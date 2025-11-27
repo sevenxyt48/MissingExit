@@ -1,5 +1,5 @@
 using UnityEngine;
-using cakeslice; // ★ QuickOutline 네임스페이스 (윤곽선 제어용)
+using cakeslice; // QuickOutline
 
 public class SimpleRadio : MonoBehaviour
 {
@@ -18,37 +18,43 @@ public class SimpleRadio : MonoBehaviour
     [Header("Penalty Sustain Key")]
     public string stopSustainReason = "라디오 규칙 위반";
 
-    // 내부
+    // 내부 캐시
     Outline[] _outlinesCached;
 
     void Awake()
     {
+        // 오디오 초기화
         if (source)
         {
             source.playOnAwake = false;
             source.loop = true;
-            if (source.isPlaying) source.Stop(); // 시작 시 무음 보장
+            if (source.isPlaying) source.Stop();   // 시작 시 무음 보장
         }
         IsOn = false;
 
-        // ★ 윤곽선 컴포넌트 수집(자식 포함)
-        _outlinesCached = autoFindOutlinesInChildren
-            ? GetComponentsInChildren<Outline>(true)
-            : GetComponents<Outline>();
-
-        // 시작 상태: 라디오 꺼짐 → 윤곽선도 Off
+        // 윤곽선 캐시 + 강제 OFF
+        CacheOutlines();
         SetOutline(false);
     }
 
     void OnEnable()
     {
-        if (source && source.isPlaying) source.Stop();
-        IsOn = false;
+        // 혹시 비활성/재활성 되더라도 항상 꺼진 상태로 시작
+        CacheOutlines();
         SetOutline(false);
+    }
+
+    void CacheOutlines()
+    {
+        if (autoFindOutlinesInChildren)
+            _outlinesCached = GetComponentsInChildren<Outline>(true);
+        else
+            _outlinesCached = GetComponents<Outline>();
     }
 
     void Start()
     {
+        // 자동 켜짐 옵션이 있으면 일정 시간 뒤 On
         if (randomAutoOn)
             Invoke(nameof(TurnOn), Random.Range(firstOnDelay.x, firstOnDelay.y));
     }
@@ -57,35 +63,45 @@ public class SimpleRadio : MonoBehaviour
     {
         if (IsOn) return;
         IsOn = true;
+
         if (source && !source.isPlaying)
         {
             source.loop = true;
             source.Play();
         }
+
         Debug.Log("[SimpleRadio] TurnOn");
 
-        // ★ 라디오 켜짐 → 윤곽선 On
-        if (showOutlineWhileOn) SetOutline(true);
+        // 라디오 켜짐 → 윤곽선 ON
+        if (showOutlineWhileOn)
+            SetOutline(true);
     }
 
     public void TurnOff()
     {
         if (!IsOn) return;
         IsOn = false;
-        if (source && source.isPlaying) source.Stop();
 
-        // 라디오를 끄는 즉시 지속 사운드도 정지
+        if (source && source.isPlaying)
+            source.Stop();
+
+        // 라디오 끄면 지속 사운드도 정지
         PenaltyManager.Instance?.StopSustain(stopSustainReason);
 
         Debug.Log("[SimpleRadio] TurnOff");
 
-        // ★ 라디오 꺼짐 → 윤곽선 Off
+        // 라디오 꺼짐 → 윤곽선 OFF
         SetOutline(false);
     }
 
-    // ─────────────────────────────
+    // InteractOnKey 에서 쓰기 좋게 토글 함수 하나 만들어 둠(원하면 안 써도 됨)
+    public void Toggle()
+    {
+        if (IsOn) TurnOff();
+        else TurnOn();
+    }
+
     // 윤곽선 일괄 제어
-    // ─────────────────────────────
     void SetOutline(bool on)
     {
         if (_outlinesCached == null) return;

@@ -163,6 +163,9 @@ public class ClueUIManager : MonoBehaviour
 
     void Update()
     {
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused)
+            return;
+
         if (!isShowing) return;
 
         if (Input.GetMouseButtonDown(0))
@@ -177,7 +180,7 @@ public class ClueUIManager : MonoBehaviour
             }
             HideClue(); return;
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             if (clickHint)
             {

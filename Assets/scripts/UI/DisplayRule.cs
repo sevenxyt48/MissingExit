@@ -184,6 +184,9 @@ public class DisplayRule : MonoBehaviour
 
     void Update()
     {
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused)
+            return;
+
         if (!_isDisplaying) return;
 
         // 좌클릭 또는 스페이스: 다음/스킵
@@ -211,8 +214,8 @@ public class DisplayRule : MonoBehaviour
             }
         }
 
-        // ESC: 닫기(필요 시 유지)
-        if (Input.GetKeyDown(KeyCode.Escape))
+        // Q: 닫기
+        if (Input.GetKeyDown(KeyCode.Q))
             EndRules();
     }
 

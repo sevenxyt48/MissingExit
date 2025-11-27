@@ -46,6 +46,8 @@ public class NoteInteraction : MonoBehaviour
 
     void Update()
     {
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused)
+            return;
         if (!playerController) return;
 
         // 거리 판정

@@ -30,6 +30,8 @@ public class AreaRuleTrigger : MonoBehaviour
 
     bool ActiveNow()
     {
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused) return false;
+
         if (Time.time - startTime < startupGrace) return false;
         var gm = GameManager.Instance;
         if (gm && gm.CurrentRoomId == "2-4") return false;

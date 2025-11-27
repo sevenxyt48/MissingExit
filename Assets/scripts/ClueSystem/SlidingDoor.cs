@@ -96,6 +96,8 @@ public class SlidingDoor : MonoBehaviour
 
     void Update()
     {
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused)
+            return;
         if (!doorPanel) return;
         if (!playerObj) { CachePlayer(); return; }
 

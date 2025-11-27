@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int totalClues = 0;
     [SerializeField] private bool autoCountAtStart = true;
 
+    [Header("출구 안내 오브젝트")]
+    [Tooltip("모든 단서 수집 후 Outline을 켤 출구 간판의 Outline 컴포넌트")]
+    [SerializeField] private Behaviour exitSignOutline;
+
     private readonly HashSet<string> collectedClues = new HashSet<string>();
     public int CollectedCount => collectedClues.Count;
     public int TotalClues => totalClues;
@@ -52,7 +56,7 @@ public class GameManager : MonoBehaviour
     [Header("엔딩 문구(엔딩 화면에서 타이핑)")]
     [TextArea]
     public string goodEndingText =
-        "“드디어 모든 진실과 마주한다. 과거의 자신과 피해자의 그림자가 겹치며, 해방감을 느낀다.”";
+        "“드디어 기억의 끝에 도달했다. 흩어진 일기장이 하나의 진실을 가리킨다. 학교가 나를 가둔 것이 아니었다. 외면했던 나의 죄책감이 만들어낸 미로였다.\r\n\r\n바닥에 가라앉았던 진실을 건져 올리자, 닫혀있던 교문이 비로소 열린다. 하지만 흉터는 사라지지 않을 것이다. 영원히.”";
     [TextArea]
     public string badEndingText =
         "“누군가 회피하면, 진실의 방 문이 닫히고 모든 기억이 재생된다.”\n게임 리셋 알림, 공동 책임 강화.";
@@ -101,6 +105,10 @@ public class GameManager : MonoBehaviour
             totalClues = FindObjectsOfType<ClueItem>(true).Length;
             Debug.Log($"[GM] 총 단서 수: {totalClues}");
         }
+
+        // 출구 간판 Outline은 시작 시 반드시 꺼둔다
+        if (exitSignOutline)
+            exitSignOutline.enabled = false;
 
         if (!Application.CanStreamedLevelBeLoaded(endSceneName))
             Debug.LogError($"[GM] 엔딩 씬 '{endSceneName}' 이(가) Build Settings에 없습니다.");
@@ -193,7 +201,12 @@ public class GameManager : MonoBehaviour
 
             if (!hasEnded && totalClues > 0 && collectedClues.Count >= totalClues)
             {
-                Debug.Log("[GM] 모든 단서 수집 완료 (아직 좋은 엔딩 아님). 출구 스토리 조건까지 충족해야 함.");
+                if (exitSignOutline)
+                {
+                    exitSignOutline.enabled = true;
+                    Debug.Log("[GM] 모든 단서 수집 → 출구 간판 Outline ON");
+                }
+                //Debug.Log("[GM] 모든 단서 수집 완료 (아직 좋은 엔딩 아님). 출구 스토리 조건까지 충족해야 함.");
                 CheckGoodEndingCondition();
             }
         }
