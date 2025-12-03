@@ -41038,7 +41038,7 @@ GameObject:
   - component: {fileID: 1277842252}
   m_Layer: 0
   m_Name: Exit
-  m_TagString: Untagged
+  m_TagString: ExitSign
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43350,7 +43350,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322854546}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9248c286054fd3f4e9d73f84e9c2e416, type: 3}
   m_Name: 
@@ -54604,6 +54604,7 @@ GameObject:
   - component: {fileID: 1719993417}
   - component: {fileID: 1719993419}
   - component: {fileID: 1719993420}
+  - component: {fileID: 1719993421}
   m_Layer: 5
   m_Name: HealthBarPanel
   m_TagString: Untagged
@@ -54697,6 +54698,23 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1719993421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719993415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9248c286054fd3f4e9d73f84e9c2e416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fullImage: {fileID: 753723408}
+  backgroundImage: {fileID: 742679125}
+  countText: {fileID: 0}
+  smooth: 1
+  lerpSpeed: 8
 --- !u!1001 &1720161266
 PrefabInstance:
   m_ObjectHideFlags: 0

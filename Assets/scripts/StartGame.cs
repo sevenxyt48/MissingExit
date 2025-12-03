@@ -166,13 +166,25 @@ public class StartGame : MonoBehaviour
         isLoading = true;
 
         PlayConfirmSfx();
+
+        // 🔥 새 게임 시작 시 GameManager 전체 상태 초기화
+        if (GameManager.Instance != null)
+        {
+            Debug.Log("[StartGame] ▶ GameManager.ResetGameState 호출");
+            GameManager.Instance.ResetGameState();
+        }
+        else
+        {
+            Debug.LogWarning("[StartGame] GameManager.Instance == null (StartScene에 GameManager가 없을 수 있음)");
+        }
+
         StartCoroutine(FadeOutAndLoad());
     }
 
     // Credits 버튼 (크레딧 패널 열기)
     public void OnClickOpenCredits()
     {
-        PlayConfirmSfx();  // ★ 크레딧 선택 시에도 선택 사운드 재생
+        PlayConfirmSfx();  // 크레딧 선택 시에도 선택 사운드 재생
 
         // 패널 보이기
         if (creditsPanel != null)
@@ -204,7 +216,7 @@ public class StartGame : MonoBehaviour
     // 크레딧 패널에서 돌아가기 버튼 / ESC
     public void OnClickCloseCredits()
     {
-        PlayConfirmSfx();  // ★ Back 버튼 / ESC에도 사운드
+        PlayConfirmSfx();  // Back 버튼 / ESC에도 사운드
 
         // 자동 스크롤 중지
         if (creditsScrollRoutine != null)
@@ -262,7 +274,7 @@ public class StartGame : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                OnClickCloseCredits();   // 여기서도 SFX 포함
+                OnClickCloseCredits();
             }
             return;    // 메인 메뉴 입력은 모두 무시
         }
@@ -299,7 +311,7 @@ public class StartGame : MonoBehaviour
             Input.GetKeyDown(KeyCode.KeypadEnter) ||
             Input.GetKeyDown(KeyCode.Space))
         {
-            ActivateCurrentMenu();   // ★ OnClick 쪽에서만 SFX 처리
+            ActivateCurrentMenu();
         }
     }
 
