@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
 
             InitRoomStories();
             HookProgressionEvents();
+            Debug.Log($"[GM] Awake() 호출됨. exitSignOutline 타입: {(exitSignOutline ? exitSignOutline.GetType().ToString() : "null")}");
         }
         else
         {
@@ -106,7 +107,7 @@ public class GameManager : MonoBehaviour
             Debug.Log($"[GM] 총 단서 수: {totalClues}");
         }
 
-        // 출구 간판 Outline은 시작 시 반드시 꺼둔다
+        // 첫 GameScene에서 인스펙터로 이미 연결되어 있다면 꺼두기
         if (exitSignOutline)
             exitSignOutline.enabled = false;
 
@@ -124,6 +125,28 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene s, LoadSceneMode m)
     {
+        Debug.Log($"[GM] ▶ OnSceneLoaded: {s.name}");
+
+        // GameScene이 새로 로드될 때마다 ExitSign Outline을 다시 찾고 꺼준다
+        if (s.name == gameplaySceneName)
+        {
+            TryReconnectExitOutline();
+            if (exitSignOutline != null)
+            {
+                exitSignOutline.enabled = false;
+                Debug.Log($"[GM] GameScene 진입 → 출구 Outline OFF: {exitSignOutline.GetType().Name}");
+            }
+        }
+
+        if (exitSignOutline != null)
+        {
+            Debug.Log($"[GM] OnSceneLoaded → exitSignOutline.enabled 현재 값 = {exitSignOutline.enabled}");
+        }
+        else
+        {
+            Debug.Log("[GM] OnSceneLoaded → exitSignOutline == null");
+        }
+
         sceneStartTime = Time.time;
         currentRoomId = "";
         IsClueOpen = false;
@@ -137,6 +160,50 @@ public class GameManager : MonoBehaviour
         hasEnded = false;
 
         exitStoryFinishedRooms.Clear();
+    }
+
+    /// <summary>
+    /// GameScene이 로드될 때 출구 오브젝트를 찾아서 Outline 컴포넌트를 다시 연결.
+    /// Exit 사인 오브젝트에 Tag "ExitSign"을 반드시 설정해야 한다.
+    /// </summary>
+    private void TryReconnectExitOutline()
+    {
+        exitSignOutline = null;
+
+        var exitObj = GameObject.FindWithTag("ExitSign");
+        if (exitObj == null)
+        {
+            Debug.LogWarning("[GM] ExitSign 태그를 가진 오브젝트를 찾지 못했습니다.");
+            return;
+        }
+
+        Behaviour found = null;
+        var behaviours = exitObj.GetComponents<Behaviour>();
+
+        // 이름에 "outline"이 들어가는 컴포넌트를 우선 찾는다
+        foreach (var b in behaviours)
+        {
+            if (b == null) continue;
+            string name = b.GetType().Name.ToLower();
+            if (name.Contains("outline"))
+            {
+                found = b;
+                break;
+            }
+        }
+
+        // 못 찾으면 첫 번째 Behaviour라도 사용 (최후의 보루)
+        if (found == null && behaviours.Length > 0)
+            found = behaviours[0];
+
+        if (found == null)
+        {
+            Debug.LogWarning("[GM] ExitSign 오브젝트에서 Outline으로 사용할 Behaviour를 찾지 못했습니다.");
+            return;
+        }
+
+        exitSignOutline = found;
+        Debug.Log("[GM] ExitSign Outline 재연결 완료: " + exitSignOutline.GetType().Name);
     }
 
     public void SetCurrentRoom(string roomId)
@@ -206,7 +273,6 @@ public class GameManager : MonoBehaviour
                     exitSignOutline.enabled = true;
                     Debug.Log("[GM] 모든 단서 수집 → 출구 간판 Outline ON");
                 }
-                //Debug.Log("[GM] 모든 단서 수집 완료 (아직 좋은 엔딩 아님). 출구 스토리 조건까지 충족해야 함.");
                 CheckGoodEndingCondition();
             }
         }
@@ -245,7 +311,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // 여기까지 통과했다 = 모든 단서 + 2-1/2-2/2-3 출구 스토리까지 확인 완료
         Debug.Log("[GM] 좋은 엔딩 조건 충족: 모든 단서 + 2-1/2-2/2-3 출구 스토리 열람 완료 → 좋은 엔딩 진입.");
         TriggerGoodEnding();
     }
@@ -296,7 +361,7 @@ public class GameManager : MonoBehaviour
             return false;
         }
 
-        // 방 입장 직후 유예(예: 교실 들어와서 바로 침묵 규칙 터지는 것 방지)
+        // 방 입장 직후 유예
         if (!ignoreRoomEnterGrace && InRoomEnterGrace())
         {
             Debug.Log($"[GM] 무시(방 입장 유예): {reason}");
@@ -362,6 +427,58 @@ public class GameManager : MonoBehaviour
         return (v == 2) ? EndingType.Bad : EndingType.Good;
     }
 
+    // ───────────────── 🔴 게임 전체 리셋 (메뉴에서 새 게임 시작 시 호출) ─────────────────
+    public void ResetGameState()
+    {
+        Debug.Log($"[GM] ▶ ResetGameState 호출됨 " +
+                  $"(이전 ViolationCount={ViolationCount}, Collected={collectedClues.Count})");
+
+        // 엔딩 상태
+        hasEnded = false;
+        LastEnding = EndingType.None;
+
+        // 규칙 위반 카운트
+        ViolationCount = 0;
+
+        // 단서 진행
+        collectedClues.Clear();
+        OnProgressChanged?.Invoke(collectedClues.Count, totalClues);
+
+        // 교실/유예 상태
+        currentRoomId = "";
+
+        IsClueOpen = false;
+        clueGraceUntil = 0f;
+
+        IsStoryOpen = false;
+        storyGraceUntil = 0f;
+
+        roomEnterGraceUntil = 0f;
+
+        // 출구 스토리 조건
+        exitStoryFinishedRooms.Clear();
+
+        // 씬 시작 시간
+        sceneStartTime = Time.time;
+
+        // 출구 Outline은 GameScene이 로드될 때 TryReconnectExitOutline에서 다시 연결/끄기
+        Debug.Log("[GM] ResetGameState: exitSignOutline 현재 값 = " +
+                  (exitSignOutline ? exitSignOutline.GetType().Name : "null"));
+
+        // 체력바 UI도 같이 리셋
+        if (ViolationBarUI.Instance != null)
+        {
+            Debug.Log("[GM] ▶ ViolationBarUI.ResetImmediate 호출");
+            ViolationBarUI.Instance.ResetImmediate();
+        }
+        else
+        {
+            Debug.Log("[GM] ▶ ViolationBarUI.Instance 없음 (아직 GameScene이 아닐 수도 있음)");
+        }
+
+        Debug.Log($"[GM] ◀ ResetGameState 완료 / 현재 ViolationCount={ViolationCount}");
+    }
+
     // ───────────────── ProgressionManager 연결 (현재는 로그만 남겨도 무방) ─────────────────
     private void HookProgressionEvents()
     {
@@ -375,8 +492,6 @@ public class GameManager : MonoBehaviour
     private void OnRoomCompletedFromProgress(string roomId)
     {
         Debug.Log($"[GM] 방 완료 콜백 수신: {roomId} (출구 스토리는 RoomExitStoryTrigger가 처리).");
-        // 필요하다면 여기서 ShowRoomStory(roomId)를 호출할 수도 있지만
-        // 현재 프로젝트에서는 exit trigger 기반으로만 스토리를 띄우므로 로그만 남긴다.
     }
 
     // ───────────────── 방별 스토리 기본값 (현재는 사용 안 해도 됨) ─────────────────
